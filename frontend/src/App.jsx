@@ -18,7 +18,8 @@ export default function App() {
   const {
     transactions, budgets, loading, error,
     income, expense, balance,
-    monthlyIncome, monthlyExpense,
+    monthlyIncome, monthlyExpense, lastMonthExpense,
+    savingsRate, thisMonthTxns,
     addTransaction, updateTransaction, deleteTransaction,
     addBudget, deleteBudget,
   } = useTransactions();
@@ -79,6 +80,9 @@ export default function App() {
                 expense={expense}
                 monthlyIncome={monthlyIncome}
                 monthlyExpense={monthlyExpense}
+                lastMonthExpense={lastMonthExpense}
+                savingsRate={savingsRate}
+                thisMonthTxns={thisMonthTxns}
                 onEdit={openEditModal}
                 onDelete={handleDelete}
                 onAddClick={openAddModal}
@@ -125,7 +129,7 @@ export default function App() {
 
       {/* Modal */}
       <TransactionModal
-        isOpen={modalOpen}
+        open={modalOpen}
         onClose={() => { setModalOpen(false); setEditItem(null); }}
         onSubmit={handleModalSubmit}
         editItem={editItem}

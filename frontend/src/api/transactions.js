@@ -1,71 +1,28 @@
-const BASE_URL = "http://localhost:8000/api";
+const BASE = "http://localhost:8000/api";
+
+const req = async (url, opts={}) => {
+  const res = await fetch(BASE+url, { headers:{"Content-Type":"application/json"}, ...opts });
+  if(res.status===204) return null;
+  if(!res.ok) throw new Error(`API error ${res.status}`);
+  return res.json();
+};
 
 export const api = {
   // Transactions
-  getTransactions: async () => {
-    const res = await fetch(`${BASE_URL}/transactions/`);
-    if (!res.ok) throw new Error("Failed to fetch transactions");
-    return res.json();
-  },
-
-  createTransaction: async (data) => {
-    const res = await fetch(`${BASE_URL}/transactions/`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (!res.ok) throw new Error("Failed to create transaction");
-    return res.json();
-  },
-
-  updateTransaction: async (id, data) => {
-    const res = await fetch(`${BASE_URL}/transactions/${id}/`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (!res.ok) throw new Error("Failed to update transaction");
-    return res.json();
-  },
-
-  deleteTransaction: async (id) => {
-    const res = await fetch(`${BASE_URL}/transactions/${id}/`, {
-      method: "DELETE",
-    });
-    if (!res.ok) throw new Error("Failed to delete transaction");
-  },
+  getTransactions:    ()       => req("/transactions/"),
+  createTransaction:  (data)   => req("/transactions/",        {method:"POST",  body:JSON.stringify(data)}),
+  updateTransaction:  (id,data)=> req(`/transactions/${id}/`,  {method:"PUT",   body:JSON.stringify(data)}),
+  deleteTransaction:  (id)     => req(`/transactions/${id}/`,  {method:"DELETE"}),
 
   // Budgets
-  getBudgets: async () => {
-    const res = await fetch(`${BASE_URL}/budgets/`);
-    if (!res.ok) throw new Error("Failed to fetch budgets");
-    return res.json();
-  },
+  getBudgets:    ()       => req("/budgets/"),
+  createBudget:  (data)   => req("/budgets/",        {method:"POST",  body:JSON.stringify(data)}),
+  updateBudget:  (id,data)=> req(`/budgets/${id}/`,  {method:"PUT",   body:JSON.stringify(data)}),
+  deleteBudget:  (id)     => req(`/budgets/${id}/`,  {method:"DELETE"}),
 
-  createBudget: async (data) => {
-    const res = await fetch(`${BASE_URL}/budgets/`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (!res.ok) throw new Error("Failed to create budget");
-    return res.json();
-  },
-
-  updateBudget: async (id, data) => {
-    const res = await fetch(`${BASE_URL}/budgets/${id}/`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (!res.ok) throw new Error("Failed to update budget");
-    return res.json();
-  },
-
-  deleteBudget: async (id) => {
-    const res = await fetch(`${BASE_URL}/budgets/${id}/`, {
-      method: "DELETE",
-    });
-    if (!res.ok) throw new Error("Failed to delete budget");
-  },
+  // Goals
+  getGoals:    ()       => req("/goals/"),
+  createGoal:  (data)   => req("/goals/",        {method:"POST",  body:JSON.stringify(data)}),
+  updateGoal:  (id,data)=> req(`/goals/${id}/`,  {method:"PUT",   body:JSON.stringify(data)}),
+  deleteGoal:  (id)     => req(`/goals/${id}/`,  {method:"DELETE"}),
 };
