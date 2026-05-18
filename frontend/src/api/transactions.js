@@ -1,4 +1,4 @@
-const BASE = "http://localhost:8000/api";
+const BASE = "https://finance-tracker-u0ih.onrender.com/api";
 
 const req = async (url, opts={}) => {
   const res = await fetch(BASE+url, { headers:{"Content-Type":"application/json"}, ...opts });
