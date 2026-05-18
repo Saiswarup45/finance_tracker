@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./styles/global.css";
 
-import { useTransactions } from "./hooks/useTransactions";
+import { useTransactions } from "./hooks/UseTransactions";
 
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
